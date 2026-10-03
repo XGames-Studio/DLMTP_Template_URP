@@ -1,7 +1,7 @@
 using System;
 using DancingLineFanmade.Level;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace DancingLineFanmade.UI
@@ -101,10 +101,11 @@ namespace DancingLineFanmade.UI
             
             QualitySettings.shadows = shadowToggle.isOn ? ShadowQuality.All : ShadowQuality.Disable;
 
-            PostProcessVolume[] postProcessVolumes = FindObjectsOfType<PostProcessVolume>(true);
-            foreach (PostProcessVolume p in postProcessVolumes)
+            // URP 下后处理由 UnityEngine.Rendering.Volume 承载
+            Volume[] volumes = FindObjectsOfType<Volume>(true);
+            foreach (Volume v in volumes)
             {
-                p.enabled = postProcessToggle.isOn;
+                v.enabled = postProcessToggle.isOn;
             }
             
             PlayerPrefs.SetInt("QualityLevel", qualityLevel);
